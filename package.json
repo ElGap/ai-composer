@@ -1,0 +1,38 @@
+{
+  "name": "@elgap/ai-composer",
+  "version": "1.0.0",
+  "description": "An open-source, minimalist AI Composer for orchestrating ideas. Powered by @elgap/ai-connect.",
+  "keywords": [
+    "ai",
+    "agent",
+    "llm",
+    "composer",
+    "orchestration"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test.ts"
+  },
+  "dependencies": {
+    "@elgap/ai-connect": "file:../elgap-ai-connect",
+    "dotenv": "^17.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2",
+    "tsx": "^4.20.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elgap/ai-composer.git"
+  },
+  "author": "Ivan Pavkovic Pavko",
+  "license": "Apache-2.0"
+}
