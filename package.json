@@ -1,6 +1,6 @@
 {
   "name": "@elgap/ai-composer",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "An open-source, minimalist AI Composer for orchestrating ideas. Powered by @elgap/ai-connect.",
   "keywords": [
     "ai",
