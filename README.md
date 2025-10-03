@@ -53,9 +53,11 @@ import { LLMResponse, OllamaProvider, OllamaProviderOptionsInput } from '@elgap/
 import { Composer } from '@elgap/ai-composer';
 
 /**
- * Configuration
+ * Configuration. 
+ * Model is only required paramether, baseUrl (default to http://localhost:11434 for Ollama) and temperature 
+ * (default to 0.7) are optional but they are added here for clarity 
  */
-const model: string = 'llama3.1:latest'; //Set model to math your locally running agent
+const model: string = 'llama3.1:latest'; //Set model name to match your locally running model
 const baseUrl: string = 'http://localhost:11434'; //Default for Ollama, adjust if it's elsewhere
 const temperature: number = 0.7; // 0 for precision, 1.0 for creativity
 

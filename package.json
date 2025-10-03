@@ -34,7 +34,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/elgap/ai-composer.git"
+    "url": "git+https://github.com/elgap/ai-composer.git"
   },
   "author": "Ivan Pavkovic",
   "license": "Apache-2.0"
