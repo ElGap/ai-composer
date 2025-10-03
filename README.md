@@ -20,12 +20,12 @@ Built on top of [@elgap/ai-connect](https://github.com/ElGap/ai-connect) for sea
 only Ollama).
 
 Both, [@elgap/ai-connect](https://github.com/ElGap/ai-connect) and 
-[@elgap/ai-composer](https://github.com/ElGap/ai-composer) are under continuous development. At the moment they
+`@elgap/ai-composer` are under continuous development. At the moment they
 support only `/api/generate` Ollama endpoint (single response object or stream of objects).
 
 ### A Note on Co-Creation
 
-This package was co-created in a deep, multi-month symbiotic dialogue between a human artisan
+This package was co-created in a deep, multi-month symbiotic dialogue between a human WebDev artisan
 [Ivan Pavković](https://pavko.info) and AI (Google's Gemini). The process served as both a real-world case study in Human-AI partnership 
 and as a practical journey for Ivan to learn TypeScript, npm package creation and dive into world of LLM's and prompt 
 engineering. The code you see is a direct result of this iterative, "sparring" process.
