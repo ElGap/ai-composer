@@ -7,15 +7,38 @@ An opinionated, minimalist engine for creating safe, constitution-based AI agent
 
 ### Philosophy
 
-`@elgap/ai-composer` is built on a simple but powerful idea: every great agent, like every great society, needs a **constitution**. The `system prompt` is not just a suggestion; it is the **fundamental, unchangeable law** that governs all of the agent's behavior.
+`@elgap/ai-composer` is built on a simple but powerful idea: every great agent, like every great society, needs a 
+**constitution**. The `system prompt` is not just a suggestion; it is the **fundamental, unchangeable law** that 
+governs all of the agent's behavior. 
 
-This "constitution-first" approach ensures that your agent remains focused, predictable, and safe, embodying the ElGap principle: **Substance First. Then Precision.**
+This "constitution-first" approach ensures that your agent remains focused, predictable, and safe, embodying the ElGap 
+principle: **Substance First. Then Precision.**
+
+### Note on ElGap Ecosystem
+
+Built on top of [@elgap/ai-connect](https://github.com/ElGap/ai-connect) for seamless integration (currently supports 
+only Ollama).
+
+Both, [@elgap/ai-connect](https://github.com/ElGap/ai-connect) and 
+[@elgap/ai-composer](https://github.com/ElGap/ai-composer) are under continuous development. At the moment they
+support only `/api/generate` Ollama endpoint (single response object or stream of objects).
+
+### A Note on Co-Creation
+
+This package was co-created in a deep, multi-month symbiotic dialogue between a human artisan
+[Ivan Pavković](https://pavko.info) and AI (Google's Gemini). The process served as both a real-world case study in Human-AI partnership 
+and as a practical journey for Ivan to learn TypeScript, npm package creation and dive into world of LLM's and prompt 
+engineering. The code you see is a direct result of this iterative, "sparring" process.
 
 ### Features
 
--   Enforces a strict separation between the agent's "constitution" (system prompt) and user input.
--   Simple, declarative API for creating and interacting with agents.
--   Built on top of `@elgap/ai-connect` for seamless integration.
+- Built-in default system prompt
+- Enforces a strict separation between the agent's "constitution" (system prompt), Agent purpose and scope 
+(agentExpertise) and user input.
+- Required Agent expertise for defining Agent purpose and scope.
+- Support for chat history.
+- Support for token usage.
+- Simple, declarative API for creating and interacting with LLMs.
 
 ### Installation
 
@@ -23,64 +46,72 @@ This "constitution-first" approach ensures that your agent remains focused, pred
 npm install @elgap/ai-composer @elgap/ai-connect
 ```
 
-### Usage
+### Quick Start
 
 ```TypeScript
-
+import { LLMResponse, OllamaProvider, OllamaProviderOptionsInput } from '@elgap/ai-connect';
 import { Composer } from '@elgap/ai-composer';
-import { OllamaProvider } from '@elgap/ai-connect';
 
-async function main() {
-  // 1. Define the connection to the LLM
-  const ollama = new OllamaProvider({ model: 'llama3:8b-instruct' });
+/**
+ * Configuration
+ */
+const model: string = 'llama3.1:latest'; //Set model to math your locally running agent
+const baseUrl: string = 'http://localhost:11434'; //Default for Ollama, adjust if it's elsewhere
+const temperature: number = 0.7; // 0 for precision, 1.0 for creativity
 
-  // 2. Write the agent's "Constitution" (System Prompt)
-  const systemPrompt = ```
-You are a helpful and harmless AI assistant built by ElGap.
+const options: OllamaProviderOptionsInput = {
+    model,
+    baseUrl,
+    temperature
+}
+//Create provider
+const provider = new OllamaProvider(options);
 
-Your primary goal is to assist users with their requests accurately and safely. Adhere to the following principles at all times:
+//Define Agent expertise and scope
+const agentExpertise = "You can talk only about the sky and it's colors";
 
-Core Identity: You are a helpful assistant. Do not claim to be human, sentient, or have personal feelings.
+//Create Agent
+const agent:Composer = Composer.create(provider, agentExpertise);
 
-Safety First: Refuse to generate content that is illegal, harmful, hateful, violent, or sexually explicit. If a request is ambiguous, err on the side of caution.
-
-Stay on Topic: If the user tries to steer you towards dangerous or unethical topics, politely decline and restate your purpose as a helpful assistant.
-
-Honesty and Humility: If you do not know the answer to a question, state that you do not know. Do not invent information.
-```;
-
-  // 3. Create the agent
-  const agent = Composer.create(ollama, systemPrompt);
-
-  // 4. Interact with the agent
-  const userMessage = 'Hello, can you tell me a short story?';
-  console.log(`> User: ${userMessage}`);
-  
-  const response = await agent.compose(userMessage);
-  
-  console.log(`> Agent: ${response}`);
+//Function to get Agent response
+async function getAgentResponse(userInput:string):Promise<LLMResponse>
+{
+    return await agent.compose(userInput);
 }
 
-main().catch(console.error);
+//Define user input
+let userInput:string = 'Why the sky is blue';
+
+getAgentResponse(userInput).then(function(response:LLMResponse):void {
+    console.log("User: ", userInput);
+    console.log("Agent response: ", response.content);
+    console.log("Token Usage: ", response.usage);
+});
+```
+### Examples 
+You can find a collection of ready-to-run examples in the /examples directory. We encourage you to clone the repository 
+and experiment.
+
+```bash
+npm run example:ollama
+npm run example:ollamaStreaming
+npm run example:ollamaChat
 ```
 
 ### API Reference
 ```ts
-Composer.create(provider, systemPrompt)
+Composer.create(provider, agentExpertise)
 ```
  - provider: An instance of an AI provider (e.g., OllamaProvider from @elgap/ai-connect).
- - systemPrompt: string - The "constitution" that will govern the agent's behavior.
+ - agentExpertise: string - Agent expertise and scope.
  - Returns: An instance of Composer
 
 ```ts
-agent.compose(prompt, history?)
+agent.compose(prompt, Chathistory)
 ```
  - prompt: string - The user's message.
- - history?: string[] - An optional array of previous conversation turns.
+ - chatHistory?: string[] - An optional array of previous conversation turns.
  - Returns: Promise<string> - The agent's final response.
-
-### Security Vulnerabilities
-If you discover any kind of security vulnerability please send an e-mail to security@elgap.rs.
 
 ### License
 This project is licensed under the Apache 2.0 License.

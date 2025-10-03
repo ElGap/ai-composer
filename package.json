@@ -13,26 +13,29 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "CHANGELOG.md",
+    "README.md",
+    "LICENCE"
   ],
   "scripts": {
     "build": "tsc",
-    "test": "tsx test.ts"
+    "example:ollama": "tsx examples/example-ollama.ts",
+    "example:ollamaStreaming": "tsx examples/ollama-streaming-usage.ts",
+    "example:ollamaChat": "tsx examples/ollama-interactive-streaming-chat.ts"
   },
   "dependencies": {
-    "@elgap/ai-connect": "file:../elgap-ai-connect",
-    "dotenv": "^17.2.1"
+    "@elgap/ai-connect": "^2.0.0"
   },
   "devDependencies": {
     "@types/node": "^24.1.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.2",
-    "tsx": "^4.20.3"
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/elgap/ai-composer.git"
+    "url": "https://github.com/elgap/ai-composer.git"
   },
-  "author": "Ivan Pavkovic Pavko",
+  "author": "Ivan Pavkovic",
   "license": "Apache-2.0"
 }
