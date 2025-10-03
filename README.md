@@ -95,6 +95,9 @@ You can find a collection of ready-to-run examples in the /examples directory. W
 and experiment.
 
 ```bash
+git clone https://github.com/ElGap/ai-composer.git
+npm install
+
 npm run example:ollama
 npm run example:ollamaStreaming
 npm run example:ollamaChat
